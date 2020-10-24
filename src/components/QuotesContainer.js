@@ -6,18 +6,18 @@ function QuotesContainer () {
   useEffect(() => {
     dispatch(fetchQuotes())
   }, [])
-const state = useSelector(state => state);
+const quote = useSelector(state => state.quote);
 const dispatch = useDispatch(fetchQuotes());
-  return state.loading ? (
+  return quote.loading ? (
     <h2>Loading</h2>
-  ) : state.error ? (
-    <h2>{state.error}</h2>
+  ) : quote.error ? (
+    <h2>{quote.error}</h2>
   ) : (
     <div>
       <h2>Quotes</h2>
       <div>
         {
-          state.quotes.map(quote => <p>{quote.quote}</p>)
+          quote.quotes.map(quote => <p>{quote.quote}</p>)
         }                
       </div>
     </div>
