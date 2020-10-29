@@ -1,3 +1,10 @@
+body {
+  background: #000 url("./img/bg.jpg") no-repeat center center/cover;
+  height: 100vh;
+  color: #fff;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
 /* .App {
   text-align: center;
 }
