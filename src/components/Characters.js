@@ -1,28 +1,39 @@
-import React, { useEffect } from 'react'
-import { useDispatch , useSelector} from 'react-redux'
-import { fetchCharacters } from '../redux/characters/cActions'
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchCharacters } from "../redux/actions/cActions";
+import Spinner from "./Spinner";
+import "../../src/";
 
-function Characters () {
+function Characters() {
+  const dispatch = useDispatch();
+
   useEffect(() => {
-    dispatch(fetchCharacters())
-  }, [])
-const character = useSelector(state => state.character);
-const dispatch = useDispatch(fetchCharacters());
+    dispatch(fetchCharacters());
+  }, [dispatch]);
+  const character = useSelector((state) => state.character);
   return character.loading ? (
-    <h2>Loading</h2>
+    <Spinner />
   ) : character.error ? (
     <h2>{character.error}</h2>
   ) : (
-    <div>
-      <h2>Characters</h2>
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        flexDirection: "column",
+      }}
+    >
+      <h1>Characters</h1>
       <div>
-        {
-          character.characters.map(character => <p>{character.name}</p>)
-        }                
+        {character.characters.map((character) => (
+          <p>
+            {character.char_id} {character.name}
+          </p>
+        ))}
       </div>
     </div>
-  )
+  );
 }
-
 
 export default Characters;

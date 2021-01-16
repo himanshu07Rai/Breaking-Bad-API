@@ -1,28 +1,39 @@
-import React, { useEffect } from 'react'
-import { useDispatch , useSelector} from 'react-redux'
-import { fetchDeaths } from '../redux/death/deathActions'
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchDeaths } from "../redux/actions/deathActions";
+import Spinner from "./Spinner";
 
-function Deaths () {
+function Deaths() {
+  const dispatch = useDispatch(fetchDeaths());
+
   useEffect(() => {
-    dispatch(fetchDeaths())
-  }, [])
-const death = useSelector(state => state.death);
-const dispatch = useDispatch(fetchDeaths());
+    dispatch(fetchDeaths());
+  }, [dispatch]);
+  const death = useSelector((state) => state.death);
+
   return death.loading ? (
-    <h2>Loading</h2>
+    <Spinner />
   ) : death.error ? (
     <h2>{death.error}</h2>
   ) : (
-    <div>
-      <h2>Deaths</h2>
+    <div
+      style={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        flexDirection: "column",
+      }}
+    >
+      <h1>Deaths</h1>
       <div>
-        {
-          death.deaths.map(death => <p>{death.death}</p>)
-        }                
+        {death.deaths.map((death) => (
+          <p>
+            {death.death} -- {death.cause}
+          </p>
+        ))}
       </div>
     </div>
-  )
+  );
 }
-
 
 export default Deaths;
